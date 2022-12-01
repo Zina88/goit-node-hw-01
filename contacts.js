@@ -33,6 +33,7 @@ async function removeContact(id) {
 
 async function addContact(name, email, phone) {
   const contacts = await listContacts();
+
   const newContact = {
     id: uid(),
     name,
@@ -40,6 +41,10 @@ async function addContact(name, email, phone) {
     phone,
   };
 
+  if (!newContact.name || !newContact.email || !newContact.phone) {
+    console.log("Not all fields are filled...");
+    return;
+  }
   contacts.push(newContact);
   await updateContacts(contacts);
   return newContact;
